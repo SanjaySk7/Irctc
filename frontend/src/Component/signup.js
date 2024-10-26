@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import {useNavigate} from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import '../App.css'; // Import the CSS file
 
 const Signup = () => {
     const [formData, setFormData] = useState({ name: '', email: '', password: '' });
-
-    const navigate=useNavigate
+    const [error, setError] = useState(null);
+    const navigate = useNavigate();
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -17,17 +18,20 @@ const Signup = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        axios.post('http://localhost:8081/irctc', formData)
-        .then(res => {
-            console.log(res);
-            navigate('/login')
-        })
-        console.log("Form Data Submitted:", formData);
+        try {
+            const res = await axios.post('http://localhost:8081/irctc', formData);
+            console.log(res.data);
+            navigate('/login');
+        } catch (err) {
+            console.error("Error during form submission:", err);
+            setError("Failed to register. Please try again.");
+        }
     };
 
     return (
-        <div>
-            <form onSubmit={handleSubmit}>
+        <div className="signup-container">
+            <div className='signup-heading'><h3>SignUP</h3></div>
+            <form onSubmit={handleSubmit} className="signup-form">
                 <label>Name: </label>
                 <input
                     name="name"
@@ -53,6 +57,7 @@ const Signup = () => {
                 />
                 
                 <button type="submit">Sign Up</button>
+                {error && <p className="error-message">{error}</p>}
             </form>
         </div>
     );

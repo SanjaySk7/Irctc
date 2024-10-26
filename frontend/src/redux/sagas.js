@@ -1,6 +1,7 @@
 import { all } from "redux-saga/effects";
-import homeSagas from "../pages/home/saga";
-
+import adminSaga from "../Pages/Admin/saga";
+import userSaga from"../Pages/Users/userSaga"
+import { signupSaga } from "../Component/signUp-Saga";
 export default function* saga() {
-  yield all([...homeSagas]);
+  yield all([...adminSaga,...signupSaga,...userSaga]);
 }

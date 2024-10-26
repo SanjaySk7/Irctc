@@ -1,0 +1,39 @@
+.train-form {
+  margin-top: 20px;
+}
+
+.train-form table {
+  width: 100%;
+  max-width: 500px;
+  border-collapse: collapse;
+  margin: auto;
+}
+
+.train-form td {
+  padding: 10px;
+}
+
+.train-form label {
+  font-weight: bold;
+}
+
+.train-form input[type="text"],
+.train-form input[type="number"],
+.train-form input[type="time"] {
+  width: 100%;
+  padding: 8px;
+  box-sizing: border-box;
+}
+
+.train-form button {
+  background-color: #4CAF50;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.train-form button:hover {
+  background-color: #45a049;
+}

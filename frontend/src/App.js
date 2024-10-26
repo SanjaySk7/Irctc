@@ -4,6 +4,10 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Login from './Component/login';
 import Signup from './Component/signup';
 import './App.css';
+import Admin from './Pages/Admin/index';
+import User from './Pages/Users/index';
+import { Provider } from 'react-redux';
+import { store } from './redux/store';
 
 const App = () => {
     const [role, setRole] = useState('');

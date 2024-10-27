@@ -1,4 +1,3 @@
-// signUp-Slice.js
 import { createSlice } from "@reduxjs/toolkit";
 
 const signupSlice = createSlice({
@@ -9,11 +8,10 @@ const signupSlice = createSlice({
     success: false,
   },
   reducers: {
-    postsOnSignup: (state,action) => {
+    postsOnSignup: (state) => {
       state.loading = true;
       state.error = null;
       state.success = false;
-      console.log(action.payload);
     },
     postsOnSignupSuccess: (state) => {
       state.loading = false;

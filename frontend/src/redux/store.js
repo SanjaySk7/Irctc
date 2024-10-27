@@ -1,24 +1,12 @@
 import { configureStore } from "@reduxjs/toolkit";
-import createSagaMiddleware from "redux-saga";
+import createSagaMiddleWare from 'redux-saga'
 
-import rootSaga from "../Pages/Admin/saga";
-import reducers from "./reducers";
+import rootSaga from '../Pages/Admin/saga'
+import reducers from './reducers'
+const sagaMiddleWare=createSagaMiddleWare();
 
-const sagaMiddleware = createSagaMiddleware();
-
-export const store = configureStore({
-  reducer: reducers,
-  middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware({
-      serializableCheck: {
-        // Ignore specific action types if they might contain non-serializable values
-        ignoredActions: [
-          "signup/postsOnSignup",
-          "signup/postsOnSignupSuccess",
-          "signup/postsOnSignupError",
-        ],
-      },
-    }).concat(sagaMiddleware),
-});
-
-sagaMiddleware.run(rootSaga);
+export const store=configureStore({
+    reducer: reducers,
+    middleware:(getDef)=> getDef().concat(sagaMiddleWare) 
+})
+sagaMiddleWare.run(rootSaga)

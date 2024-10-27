@@ -31,6 +31,14 @@ const Signup = () => {
   if (success) {
     navigate("/login"); // Redirect on successful signup
   }
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    dispatch(postsOnSignup(formData)); // Dispatch the action to trigger saga
+  };
+
+  if (success) {
+    navigate("/login"); // Redirect on successful signup
+  }
 
   return (
     <div className="signup-container">

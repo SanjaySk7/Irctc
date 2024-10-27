@@ -8,18 +8,16 @@ import {
 
 // Define the API call
 const signupApi = async (data) => {
-    console.log(data)
   const response = await axios.post("http://localhost:8081/irctc", data);
   return response.data;
 };
- 
+
 // Worker saga
 function* handleSignup(action) {
   try {
     const data = yield call(signupApi, action.payload);
-    console.log("Signup successful:", data); 
     yield put(postsOnSignupSuccess());
-   // Optional: log data or handle as needed
+    console.log("Signup successful:", data); // Optional: log data or handle as needed
   } catch (error) {
     console.error("Signup error:", error);
     yield put(postsOnSignupError("Failed to register. Please try again."));

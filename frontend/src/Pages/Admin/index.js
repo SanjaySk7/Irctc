@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useDispatch} from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { postTrainsSuccess } from "./slice"; // Adjust the import path as necessary
 import "./Admin.css"; // Import CSS for styling
 

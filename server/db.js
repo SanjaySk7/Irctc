@@ -14,6 +14,7 @@ const db = mysql.createConnection({
 });
 
 app.post('/irctc', (req,res)=>{
+    console.log("Received data:", req.body);
     const sql= "INSERT INTO users (`name`,`email`,`password`) VALUES (?)";
     const values=[
         req.body.name,
@@ -21,7 +22,10 @@ app.post('/irctc', (req,res)=>{
         req.body.password
     ]
     db.query(sql,[values], (err,result)=>{
-        if(err) return res.json({Message: "Error in Node"});
+        if(err) {
+            console.error("Database error:", err);
+            return res.json({Message: "Error in Node"});
+        }
         return res.json(result);
     })
 })

@@ -1,38 +1,16 @@
-import { takeLatest, call, put } from "redux-saga/effects";
+import { takeLatest, call, put } from 'redux-saga/effects';
+import { postTrains, postTrainsSuccess, postTrainsError } from './slice';
+import axios from 'axios';
 
-
-import {
-  fetchTrains,
-  fetchTrainsSuccess,
-  fetchTrainsError,
-  postTrains,
-  postTrainsSuccess,
-  postTrainsError,
-} from "./slice";
-// import { fetchTrainsAPI, postTrainAPI } from "../../services/api"; // Adjust path if necessary
-
-// Fetch Trains Saga
-function* fetchTrainsSaga() {
+function* handlePostTrains(action) {
   try {
-    const response = yield call('');
-    yield put(fetchTrainsSuccess(response));
+    const response = yield call(axios.post, 'http://localhost:8081/irctc', action.payload);
+    yield put(postTrainsSuccess(response.data));
   } catch (error) {
-    yield put(fetchTrainsError(error.message));
+    yield put(postTrainsError("Failed to post train data."));
   }
 }
 
-// Post Train Saga
-function* postTrainsSaga(action) {
-  try {
-    const response = yield call('', action.payload);
-    yield put(postTrainsSuccess(response));
-  } catch (error) {
-    yield put(postTrainsError(error.message));
-  }
-}
-
-// Watcher Saga
-export default function* rootSaga() {
-  yield takeLatest(fetchTrains.type, fetchTrainsSaga);
-  yield takeLatest(postTrains.type, postTrainsSaga);
+export default function* watchPostTrains() {
+  yield takeLatest(postTrains.type, handlePostTrains);
 }

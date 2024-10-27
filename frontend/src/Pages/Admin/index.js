@@ -1,7 +1,8 @@
 import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { postTrainsSuccess } from "./slice"; // Adjust the import path as necessary
+import { useDispatch,} from "react-redux";
+import { postTrains, } from "./slice"; // Adjust the import path as necessary
 import "./Admin.css"; // Import CSS for styling
+
 
 function Admin() {
   const [listOfTrains, setListOfTrains] = useState([]);
@@ -26,10 +27,10 @@ function Admin() {
     e.preventDefault();
     console.log("Train Data:", formData);
 
-    // Update the list of trains and dispatch the action
     const newTrain = { id: Date.now(), ...formData }; // Add a unique ID
     setListOfTrains([...listOfTrains, newTrain]);
-    dispatch(postTrainsSuccess([...listOfTrains, newTrain])); // Dispatching action
+    dispatch(postTrains(newTrain))
+  
     setShowForm(false);
     setFormData({
       trainName: "",

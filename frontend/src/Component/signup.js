@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { postsOnSignup } from "./signUp-Slice";
+import { postsOnSignup, postsOnSignupSuccess } from "./signUp-Slice";
 import "../App.css";
 
 const Signup = () => {
@@ -10,9 +10,15 @@ const Signup = () => {
     email: "",
     password: "",
   });
-  const {loading,  error, success } = useSelector((state) => state.signup);
+  const { loading, error, success } = useSelector((state) => state.signup);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (success) {
+      navigate("/login");
+    }
+  }, [success, navigate]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -24,21 +30,10 @@ const Signup = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(formData);
-    dispatch(postsOnSignup(formData)); // Dispatch the action to trigger saga
-  };
+    dispatch(postsOnSignup(formData));
+    dispatch(postsOnSignupSuccess(formData));
 
-  if (success) {
-    navigate("/login"); // Redirect on successful signup
-  }
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    dispatch(postsOnSignup(formData)); // Dispatch the action to trigger saga
   };
-
-  if (success) {
-    navigate("/login"); // Redirect on successful signup
-  }
 
   return (
     <div className="signup-container">

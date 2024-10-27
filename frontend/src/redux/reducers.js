@@ -1,10 +1,10 @@
 import sliceReducer from "../Pages/Admin/slice";
 import trainReducer from "../Pages/Users/trainSlice";
-import { signupSaga } from "../Component/signUp-Saga";
+import signupSlice from "../Component/signUp-Slice"
 const reducers = {
   admin: sliceReducer,
   trains: trainReducer,
-  signup: signupSaga,
+  signup: signupSlice,
 };
 
 export default reducers;

@@ -6,18 +6,17 @@ import {
   postsOnSignupError,
 } from "./signUp-Slice";
 
-// Define the API call
-const signupApi = async (data) => {
-  const response = await axios.post("http://localhost:8081/irctc", data);
-  return response.data;
-};
-
 // Worker saga
 function* handleSignup(action) {
+  console.log("saga");
+  
   try {
-    const data = yield call(signupApi, action.payload);
-    yield put(postsOnSignupSuccess());
-    console.log("Signup successful:", data); // Optional: log data or handle as needed
+    const response = yield call(
+      axios.post,
+      "http://localhost:8081/irctc",
+      action.payload
+    );
+    yield put(postsOnSignupSuccess(response.data));
   } catch (error) {
     console.error("Signup error:", error);
     yield put(postsOnSignupError("Failed to register. Please try again."));
@@ -25,6 +24,6 @@ function* handleSignup(action) {
 }
 
 // Watcher saga
-export function* signupSaga() {
+export default function* signupSaga() {
   yield takeLatest(postsOnSignup.type, handleSignup);
 }

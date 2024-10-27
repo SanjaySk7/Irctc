@@ -1,21 +1,22 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const signupSlice = createSlice({
+const signUpSlice = createSlice({
   name: "signup",
   initialState: {
+    users: [], // Array to store multiple users
     loading: false,
-    error: null,
     success: false,
+    error: null,
   },
   reducers: {
     postsOnSignup: (state) => {
       state.loading = true;
       state.error = null;
-      state.success = false;
     },
-    postsOnSignupSuccess: (state) => {
+    postsOnSignupSuccess: (state, action) => {
       state.loading = false;
       state.success = true;
+      state.users.push(action.payload); // Add the new user to users array
     },
     postsOnSignupError: (state, action) => {
       state.loading = false;
@@ -25,5 +26,5 @@ const signupSlice = createSlice({
 });
 
 export const { postsOnSignup, postsOnSignupSuccess, postsOnSignupError } =
-  signupSlice.actions;
-export default signupSlice.reducer;
+  signUpSlice.actions;
+export default signUpSlice.reducer;

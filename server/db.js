@@ -31,7 +31,6 @@ app.post('/irctc', (req,res)=>{
     })
 })
 
-// Endpoint for user login
 app.post('/login', (req, res) => {
     const { email, password } = req.body;
 
@@ -51,7 +50,6 @@ app.post('/login', (req, res) => {
     });
 });
 
-// Endpoint to get user details
 app.get('/user/:id', (req, res) => {
     const userId = req.params.id;
     
@@ -71,8 +69,6 @@ app.get('/user/:id', (req, res) => {
     });
 });
 
-
-// Add a new route for inserting train data
 app.post('/add-train', (req, res) => {
     console.log("Received train data:", req.body);
     const sql = "INSERT INTO trains (`trainName`, `source`, `destination`, `departureTime`, `arrivalTime`, `departureDate`, `arrivalDate`,`seats`) VALUES (?)";
@@ -96,17 +92,15 @@ app.post('/add-train', (req, res) => {
 });
 
 app.get('/get-trains', (req, res) => {
-    const sql = "SELECT * FROM trains"; // Adjust your query as necessary
+    const sql = "SELECT * FROM trains"; 
     db.query(sql, (err, result) => {
         if (err) {
             console.error("Database error:", err);
             return res.status(500).json({ Message: "Error fetching trains" });
         }
-        return res.status(200).json(result); // Send the train data as the response
+        return res.status(200).json(result);
     });
 });
-
-// Add this to your existing Express server code
 
 app.get('/get-trains/:fromStation/:toStation', (req, res) => {
     const { fromStation, toStation } = req.params;
@@ -117,11 +111,10 @@ app.get('/get-trains/:fromStation/:toStation', (req, res) => {
             console.error("Database error:", err);
             return res.status(500).json({ Message: "Error fetching trains" });
         }
-        return res.status(200).json(result); // Send the train data as the response
+        return res.status(200).json(result);
     });
 });
 
-//Book trains
 app.post('/book-train', (req, res) => {
     console.log("Received booking request:", req.body); 
 
@@ -151,7 +144,6 @@ app.post('/book-train', (req, res) => {
                 });
             }
 
-            // Insert booking details into the bookings table
             const insertSql = "INSERT INTO bookings (user_id, trains_id) VALUES (?, ?)";
             db.query(insertSql, [userId, trainId], (err, result) => {
                 if (err) {
@@ -161,7 +153,6 @@ app.post('/book-train', (req, res) => {
                     });
                 }
 
-                // Commit transaction
                 db.commit(err => {
                     if (err) {
                         console.error("Transaction commit error:", err);
@@ -178,7 +169,6 @@ app.post('/book-train', (req, res) => {
     });
 });
 
-// Get user bookings
 app.get('/user-bookings/:userId', (req, res) => {
     const userId = req.params.userId;
     console.log(userId);
@@ -202,8 +192,6 @@ app.get('/user-bookings/:userId', (req, res) => {
         return res.status(200).json(results);
     });
 });
-
-
 
 app.listen(8081, ()=>{
     console.log("Connected to server");

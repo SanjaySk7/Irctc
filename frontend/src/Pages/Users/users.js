@@ -113,7 +113,7 @@ const Users = () => {
   return (
     <div className="container">
       <div className="heading-dashboard">
-        <h2 className='user-heading'>Welcome {username}</h2> 
+        <h2 className="user-heading">Welcome {username}</h2>
       </div>
       <nav className="user-nav">
         <button onClick={handleBookTrainsClick}>Book Trains</button>
@@ -123,22 +123,34 @@ const Users = () => {
 
       {showBookTrains && (
         <div className="booking-container">
-          <div className='booking-heading'>
+          <div className="booking-heading">
             <h3>Book Trains</h3>
           </div>
           <form onSubmit={handleSubmit} className="users-form">
             <label>
               From Station:
-              <input type="text" name="fromStation" value={formData.fromStation} onChange={handleChange} required />
+              <input
+                type="text"
+                name="fromStation"
+                value={formData.fromStation}
+                onChange={handleChange}
+                required
+              />
             </label>
             <label>
               To Station:
-              <input type="text" name="toStation" value={formData.toStation} onChange={handleChange} required />
+              <input
+                type="text"
+                name="toStation"
+                value={formData.toStation}
+                onChange={handleChange}
+                required
+              />
             </label>
             <button type="submit">Get Trains</button>
           </form>
 
-          {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
+          {errorMessage && <p style={{ color: "red" }}>{errorMessage}</p>}
 
           {trainDetails.length > 0 && (
             <table>
@@ -163,11 +175,16 @@ const Users = () => {
                     <td>{train.destination}</td>
                     <td>{train.departureTime}</td>
                     <td>{train.arrivalTime}</td>
-                    <td>{new Date(train.departureDate).toLocaleDateString()}</td>
+                    <td>
+                      {new Date(train.departureDate).toLocaleDateString()}
+                    </td>
                     <td>{new Date(train.arrivalDate).toLocaleDateString()}</td>
                     <td>{train.seats}</td>
                     <td>
-                      <button onClick={() => handleBookTrain(train.train_id)} disabled={train.seats <= 0}>
+                      <button
+                        onClick={() => handleBookTrain(train.train_id)}
+                        disabled={train.seats <= 0}
+                      >
                         Book
                       </button>
                     </td>
@@ -181,7 +198,7 @@ const Users = () => {
 
       {showViewBookings && (
         <div>
-          <div className='yourbooking-heading'>
+          <div className="yourbooking-heading">
             <h3>Your Bookings</h3>
           </div>
           {userBookings.length > 0 ? (
@@ -210,7 +227,7 @@ const Users = () => {
               </tbody>
             </table>
           ) : (
-            <div className='your-heading'>
+            <div className="your-heading">
               <p>No bookings found.</p>
             </div>
           )}
